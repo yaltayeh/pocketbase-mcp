@@ -2,29 +2,47 @@
   "name": "pocketbase-mcp",
   "version": "0.0.1",
   "description": "ModelContextProtocol server for PocketBase",
-  "type": "module",
   "keywords": [
     "mcp",
-    "pocketbase",
-    "ai"
+    "modelcontextprotocol",
+    "pocketbase"
   ],
-  "homepage": "https://github.com/yaltayeh/pocketbase-mcp#readme",
-  "bugs": {
-    "url": "https://github.com/yaltayeh/pocketbase-mcp/issues"
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "pocketbase-mcp": "./build/index.js"
   },
+  "scripts": {
+    "build": "tsc && chmod 755 build/index.js",
+    "dev": "tsx src/index.ts",
+    "start": "node build/index.js",
+    "test": "jest"
+  },
+  "files": [
+    "build"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yaltayeh/pocketbase-mcp.git"
   },
-  "license": "ISC",
   "author": "yaltayeh",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yaltayeh/pocketbase-mcp/issues"
   },
+  "homepage": "https://github.com/yaltayeh/pocketbase-mcp#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.27.1",
     "pocketbase": "^0.26.8",
     "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@jest/globals": "^30.3.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.0",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }

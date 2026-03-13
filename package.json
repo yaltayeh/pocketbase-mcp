@@ -1,0 +1,30 @@
+{
+  "name": "pocketbase-mcp",
+  "version": "0.0.1",
+  "description": "ModelContextProtocol server for PocketBase",
+  "type": "module",
+  "keywords": [
+    "mcp",
+    "pocketbase",
+    "ai"
+  ],
+  "homepage": "https://github.com/yaltayeh/pocketbase-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/yaltayeh/pocketbase-mcp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaltayeh/pocketbase-mcp.git"
+  },
+  "license": "ISC",
+  "author": "yaltayeh",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "pocketbase": "^0.26.8",
+    "zod": "^4.3.6"
+  }
+}

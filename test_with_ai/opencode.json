@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "pocketbase": {
+      "type": "local",
+      "command": ["node", "../build/index.js"],
+      "enabled": true
+    }
+  }
+}

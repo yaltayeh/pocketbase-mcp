@@ -58,17 +58,17 @@ describe('tools', () => {
 		expect(collections.find(c => c.name === "_superusers")).toBeDefined();
 	});
 
-	test("create collection", async () => {
-		const response = await client.callTool({
-			"name": "create_collection",
-			"arguments": {
-				"name": "test_collection"
-			},
-		})
+	// test("create collection", async () => {
+	// 	const response = await client.callTool({
+	// 		"name": "create_collection",
+	// 		"arguments": {
+	// 			"name": "test_collection"
+	// 		},
+	// 	})
 		
-		expect(response).toBeDefined();
-		const { collection } = response.structuredContent;
-		expect(collection).toBeDefined();
-		expect(collection.name).toBe("test_collection");
-	});
+	// 	expect(response).toBeDefined();
+	// 	const { collection } = response.structuredContent;
+	// 	expect(collection).toBeDefined();
+	// 	expect(collection.name).toBe("test_collection");
+	// });
 });

@@ -3,10 +3,31 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 import PocketBase from 'pocketbase';
 import { collectionModelSchema } from './schemas.js';
+import { initializeDocumentationIndex, registerDocumentationTools, registerDocumentationResources } from './documentation/docsTools.js';
 
 const server = new McpServer({ name: 'pocketbase-mcp', version: '0.0.1' });
 
 let pocketbase:PocketBase|null = null; // This will hold the PocketBase client instance once connected
+let docsInitialized = false; // Flag to track if documentation index has been initialized
+
+// Initialize documentation index and register documentation tools/resources
+async function initializeDocumentation(): Promise<void> {
+  if (!docsInitialized) {
+    try {
+      await initializeDocumentationIndex();
+      registerDocumentationTools(server);
+      registerDocumentationResources(server);
+      docsInitialized = true;
+      console.log('PocketBase documentation integration initialized');
+    } catch (error) {
+      console.error('Failed to initialize documentation integration:', error);
+      // Don't fail the server startup if documentation initialization fails
+    }
+  }
+}
+
+// Initialize documentation before connecting transport
+await initializeDocumentation();
 
 server.registerTool("connect",
     {
@@ -47,7 +68,7 @@ server.registerTool("connect",
 server.registerTool("list_collections",
     {
         title: "List Collections",
-        description: "List all collections in the connected PocketBase instance",
+        description: "List all collections in the connected PocketBase instance. Collections in PocketBase represent your application data and are backed by SQLite tables. Learn more about collections in the PocketBase documentation.",
         inputSchema: z.object({}),
         outputSchema: z.object({
             collections: z.array(z.record(z.string(), z.any()))
@@ -58,7 +79,7 @@ server.registerTool("list_collections",
             throw new Error("Not connected to PocketBase. Please connect first.");
         }
         const collections = await pocketbase.collections.getFullList();
-        console.log("collectios ", collections)
+        console.log("collections ", collections)
         return {
             content: [
                 { type: "text", text: `Found ${collections.length} collections.`},
@@ -71,7 +92,7 @@ server.registerTool("list_collections",
 
 server.registerTool("create_collection", {
     title: "Create Collection",
-    description: "Create a new collection in the connected PocketBase instance",
+    description: "Create a new collection in the connected PocketBase instance. In PocketBase, collections represent your application data and are backed by SQLite tables. You can define fields, indexes, and rules for each collection. Learn more about collections in the PocketBase documentation under the 'collections' section.",
     inputSchema: z.object({config: collectionModelSchema}),
     outputSchema: z.object({config: collectionModelSchema})
 }, async ({config}) => {
